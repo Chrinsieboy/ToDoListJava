@@ -14,41 +14,50 @@ public class ToDoDetailView extends JFrame {
      * @param toDoItem - The ToDoItem object
      */
     public void ShowDetail(ToDoItem toDoItem) {
-        JFrame detailFrame = new JFrame("ToDoDetailView");
+        // remove all components from existing frame
+        this.getContentPane().removeAll();
 
-        // if toDoItem is null, show empty form
+        JFrame detailFrame = this;
+        detailFrame.setTitle("ToDo Detail");
+        detailFrame.setSize(300, 150);
+
+        // Create a new JLabel
+        JLabel nameLabel = new JLabel("Name");
+        nameLabel.setSize(300, 100);
+
+        // Create a new JTextField
+        JTextField nameTextField = new JTextField(20);
+        nameTextField.setSize(300, 100);
+
+        // Create a new JLabel
+        JLabel isDoneLabel = new JLabel("Is done");
+
+        // Create a new JCheckBox
+        JCheckBox isDoneCheckBox = new JCheckBox();
+
+        // Create a new JPanel
+        JPanel panel = new JPanel();
+
+        // Create a new JPanel
+        JPanel buttonsPanel = new JPanel();
+
+        JButton addButton = new JButton("Add");
+        JButton saveButton = new JButton("Save");
+        JButton deleteButton = new JButton("Delete");
+        JButton cancelButton = new JButton("Cancel");
+
         if (toDoItem == null) {
-            // Create a new JFrame
-            detailFrame.setSize(300, 150);
+            nameTextField.setText("");
+            isDoneCheckBox.setSelected(false);
 
-            // Create a new JPanel
-            JPanel panel = new JPanel();
-
-            // Create a new JLabel
-            JLabel nameLabel = new JLabel("Name");
-            nameLabel.setSize(300, 100);
             panel.add(nameLabel);
-
-            // Create a new JTextField
-            JTextField nameTextField = new JTextField(20);
-            nameTextField.setSize(300, 100);
             panel.add(nameTextField);
-
-            // Create a new JLabel
-            JLabel isDoneLabel = new JLabel("Is done");
             panel.add(isDoneLabel);
-
-            // Create a new JCheckBox
-            JCheckBox isDoneCheckBox = new JCheckBox();
             panel.add(isDoneCheckBox);
 
-            // Create a new JPanel
-            JPanel buttonsPanel = new JPanel();
-
             // Create a new JButton
-            JButton addButton = new JButton("Add");
             addButton.addActionListener(e -> {
-                if (nameTextField.getText().isEmpty()) {
+                if (nameTextField.getText().isEmpty() || nameTextField.getText() == null || nameTextField.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Name is required");
                     return;
                 }
@@ -58,52 +67,31 @@ public class ToDoDetailView extends JFrame {
             buttonsPanel.add(addButton);
 
             // Create a new JButton
-            JButton cancelButton = new JButton("Cancel");
             cancelButton.addActionListener(e -> {
                 detailFrame.dispose();
             });
             buttonsPanel.add(cancelButton);
-
-            // Add the panel to the frame
-            detailFrame.add(panel);
-            detailFrame.add(buttonsPanel);
         } else {
-            // Create a new JFrame
-            detailFrame.setSize(300, 150);
-
-            // Create a new JPanel
-            JPanel panel = new JPanel();
-
-            // Create a new JLabel
-            JLabel nameLabel = new JLabel("Name");
-            panel.add(nameLabel);
-
-            // Create a new JTextField
-            JTextField nameTextField = new JTextField(toDoItem.getName(), 20);
-            panel.add(nameTextField);
-
-            // Create a new JLabel
-            JLabel isDoneLabel = new JLabel("Is done");
-            panel.add(isDoneLabel);
-
-            // Create a new JCheckBox
-            JCheckBox isDoneCheckBox = new JCheckBox();
+            nameTextField.setText(toDoItem.getName());
             isDoneCheckBox.setSelected(toDoItem.getIsDone());
+
+            panel.add(nameLabel);
+            panel.add(nameTextField);
+            panel.add(isDoneLabel);
             panel.add(isDoneCheckBox);
 
-            // Create a new JPanel
-            JPanel buttonsPanel = new JPanel();
-
             // Create a new JButton
-            JButton saveButton = new JButton("Save");
             saveButton.addActionListener(e -> {
+                if (nameTextField.getText().isEmpty() || nameTextField.getText() == null || nameTextField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Name is required");
+                    return;
+                }
                 editItem(toDoItem, nameTextField.getText(), isDoneCheckBox.isSelected());
                 detailFrame.dispose();
             });
             buttonsPanel.add(saveButton);
 
             // Create a new JButton
-            JButton deleteButton = new JButton("Delete");
             deleteButton.addActionListener(e -> {
                 deleteItem(toDoItem);
                 detailFrame.dispose();
@@ -111,7 +99,6 @@ public class ToDoDetailView extends JFrame {
             buttonsPanel.add(deleteButton);
 
             // Create a new JButton
-            JButton cancelButton = new JButton("Cancel");
             cancelButton.addActionListener(e -> {
                 detailFrame.dispose();
             });
@@ -121,6 +108,10 @@ public class ToDoDetailView extends JFrame {
             detailFrame.add(panel);
             detailFrame.add(buttonsPanel);
         }
+        // Add the panel to the frame
+        detailFrame.add(panel);
+        detailFrame.add(buttonsPanel);
+
         detailFrame.setLayout(new BoxLayout(detailFrame.getContentPane(), BoxLayout.Y_AXIS));
         detailFrame.setLocationRelativeTo(null);
         detailFrame.setVisible(true);
