@@ -139,10 +139,9 @@ public class ToDoDetailView extends JFrame {
      * @param isDone - The status of the ToDoItem
      * @return - The ToDoItem object
      */
-    public ToDoItem addItem(String name, boolean isDone) {
-        ToDoItem item = toDoController.addToDoItem(name, isDone,true);
-        System.out.println(item.getName() + " has been added");
-        return item;
+    public void addItem(String name, boolean isDone) {
+        toDoController.addToDoItem(name, isDone,true);
+        System.out.println(name + " has been added");
     }
 
     /**
@@ -163,7 +162,7 @@ public class ToDoDetailView extends JFrame {
      * @param toDoItem - The ToDoItem object to delete
      */
     public void deleteItem(ToDoItem toDoItem) {
-        toDoController.removeToDoItem(toDoItem);
+        toDoController.removeToDoItem(toDoItem, true);
         System.out.println(toDoItem + " has been deleted");
     }
 }

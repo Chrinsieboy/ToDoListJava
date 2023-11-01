@@ -1,6 +1,5 @@
 package nl.chris;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ToDoController {
@@ -21,7 +20,6 @@ public class ToDoController {
 
         // Show all ToDoItems
         ShowList(manager.getToDoItems());
-
     }
 
     /**
@@ -44,17 +42,14 @@ public class ToDoController {
      * Add a ToDoItem
      * @param name - The name of the ToDoItem
      * @param isDone - The status of the ToDoItem
-     * @return - The ToDoItem object
      */
-    public ToDoItem addToDoItem(String name, boolean isDone) {
-        ToDoItem item = manager.addToDoItem(name, isDone);
-        return item;
+    public void addToDoItem(String name, boolean isDone) {
+        manager.addToDoItem(name, isDone);
     }
-    public ToDoItem addToDoItem(String name, boolean isDone,boolean updateListview) {
-        ToDoItem item = this.addToDoItem(name,isDone);
+    public void addToDoItem(String name, boolean isDone,boolean updateListview) {
+        this.addToDoItem(name,isDone);
         if(updateListview)
              list.repaintList(manager.getToDoItems());
-        return item;
     }
     /**
      * Edit a ToDoItem
@@ -79,5 +74,10 @@ public class ToDoController {
      */
     public void removeToDoItem(ToDoItem toDoItem) {
         manager.removeToDoItem(toDoItem);
+    }
+    public void removeToDoItem(ToDoItem toDoItem,boolean updateListview) {
+        this.removeToDoItem(toDoItem);
+        if(updateListview)
+            list.repaintList(manager.getToDoItems());
     }
 }

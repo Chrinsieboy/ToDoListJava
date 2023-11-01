@@ -19,24 +19,20 @@ public class ToDoListView extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 300);
 
-         todoListPanel = new JPanel();
-
+        // list panel
+        todoListPanel = new JPanel();
         for (ToDoItem toDoItem : toDoItems) {
-
             todoListPanel.add(addTodoToPanel(toDoItem));
         }
 
         // buttons panel
         JPanel buttonsPanel = new JPanel();
-
-        // padding between buttons
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // add button
         JButton addButton = new JButton("Add");
         addButton.addActionListener(e -> {
-            toDoController.ShowToDoItem(null);
-            System.out.println("ToDoListView ShowToDoItem is called");
+            addOrEditButton(null);
         });
         buttonsPanel.add(addButton);
 
@@ -48,13 +44,16 @@ public class ToDoListView extends JFrame {
         });
         buttonsPanel.add(sortButton);
 
+        // set layout
         todoListPanel.setLayout(new BoxLayout(todoListPanel, BoxLayout.Y_AXIS));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+
+        // add panels to frame
         frame.add(todoListPanel);
         frame.add(buttonsPanel);
 
+        // show frame
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         System.out.println("ToDoListView is initialized");
@@ -63,15 +62,13 @@ public class ToDoListView extends JFrame {
         JPanel itemPanel = new JPanel();
         JLabel textLabel;
         if (toDoItem.getIsDone()) {
-            textLabel = new JLabel(toDoItem.getName() + " (done) ");
+            textLabel = new JLabel(" ✔ " + toDoItem.getName() + "   ");
         } else {
-            textLabel = new JLabel(toDoItem.getName() + " (not done) ");
-
+            textLabel = new JLabel(" ❌ " + toDoItem.getName() + "   ");
         }
         JButton editButton = new JButton("Edit");
         editButton.addActionListener(e -> {
-            toDoController.ShowToDoItem(toDoItem);
-            System.out.println("ToDoListView ShowToDoItem is called");
+            addOrEditButton(toDoItem);
         });
 
         itemPanel.add(textLabel);
@@ -89,14 +86,12 @@ public class ToDoListView extends JFrame {
 
     /**
      * Add a ToDoItem
-     * @param name - The name of the ToDoItem
-     * @param isDone - The status of the ToDoItem
+     * @param toDoItem - The ToDoItem object
      * @return - The ToDoItem object
      */
-    public ToDoItem addItem(String name, boolean isDone) {
-        ToDoItem item = toDoController.addToDoItem(name, isDone);
-        System.out.println(item);
-        return item;
+    public void addOrEditButton(ToDoItem toDoItem) {
+        toDoController.ShowToDoItem(toDoItem);
+        System.out.println("ToDoListView ShowToDoItem is called");
     }
 
     public void repaintList(ArrayList<ToDoItem> toDoItems) {
