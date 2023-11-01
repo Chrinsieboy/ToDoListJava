@@ -130,7 +130,6 @@ public class ToDoDetailView extends JFrame {
         detailFrame.setLayout(new BoxLayout(detailFrame.getContentPane(), BoxLayout.Y_AXIS));
         detailFrame.setLocationRelativeTo(null);
         detailFrame.setVisible(true);
-        return;
     }
 
     /**
@@ -150,11 +149,8 @@ public class ToDoDetailView extends JFrame {
      * @param name - The new name of the ToDoItem
      * @param isDone - The new status of the ToDoItem
      */
-    public ToDoItem editItem(ToDoItem toDoItem, String name, boolean isDone) {
-        ToDoItem item = toDoController.editToDoItem(toDoItem, name, isDone, true);
-
-        System.out.println(item + " has been edited");
-        return item;
+    public void editItem(ToDoItem toDoItem, String name, boolean isDone) {
+        toDoController.editToDoItem(toDoItem, name, isDone, true);
     }
 
     /**

@@ -57,15 +57,13 @@ public class ToDoController {
      * @param name - The new name of the ToDoItem
      * @param isDone - The new status of the ToDoItem
      */
-    public ToDoItem editToDoItem(ToDoItem toDoItem, String name, boolean isDone) {
-        ToDoItem item = manager.editToDoItem(toDoItem, name, isDone);
-        return item;
+    public void editToDoItem(ToDoItem toDoItem, String name, boolean isDone) {
+        manager.editToDoItem(toDoItem, name, isDone);
     }
-    public ToDoItem editToDoItem(ToDoItem toDoItem, String name, boolean isDone,boolean updateListview) {
+    public void editToDoItem(ToDoItem toDoItem, String name, boolean isDone,boolean updateListview) {
         this.editToDoItem(toDoItem,name,isDone);
         if(updateListview)
             list.repaintList(manager.getToDoItems());
-        return toDoItem;
     }
 
     /**
