@@ -14,7 +14,6 @@ public class ToDoDetailView extends JFrame {
      * @param toDoItem - The ToDoItem object
      */
     public void ShowDetail(ToDoItem toDoItem) {
-        System.out.println("-------====[ ToDo Detail ]====-------");
         JFrame detailFrame = new JFrame("ToDoDetailView");
 
         // if toDoItem is null, show empty form
@@ -55,7 +54,6 @@ public class ToDoDetailView extends JFrame {
                 }
                 addItem(nameTextField.getText(), isDoneCheckBox.isSelected());
                 detailFrame.dispose();
-                System.out.println("ToDoDetailView addButton is clicked");
             });
             buttonsPanel.add(addButton);
 
@@ -63,7 +61,6 @@ public class ToDoDetailView extends JFrame {
             JButton cancelButton = new JButton("Cancel");
             cancelButton.addActionListener(e -> {
                 detailFrame.dispose();
-                System.out.println("ToDoDetailView cancelButton is clicked");
             });
             buttonsPanel.add(cancelButton);
 
@@ -102,7 +99,6 @@ public class ToDoDetailView extends JFrame {
             saveButton.addActionListener(e -> {
                 editItem(toDoItem, nameTextField.getText(), isDoneCheckBox.isSelected());
                 detailFrame.dispose();
-                System.out.println("ToDoDetailView saveButton is clicked");
             });
             buttonsPanel.add(saveButton);
 
@@ -111,7 +107,6 @@ public class ToDoDetailView extends JFrame {
             deleteButton.addActionListener(e -> {
                 deleteItem(toDoItem);
                 detailFrame.dispose();
-                System.out.println("ToDoDetailView deleteButton is clicked");
             });
             buttonsPanel.add(deleteButton);
 
@@ -119,7 +114,6 @@ public class ToDoDetailView extends JFrame {
             JButton cancelButton = new JButton("Cancel");
             cancelButton.addActionListener(e -> {
                 detailFrame.dispose();
-                System.out.println("ToDoDetailView cancelButton is clicked");
             });
             buttonsPanel.add(cancelButton);
 
@@ -140,7 +134,6 @@ public class ToDoDetailView extends JFrame {
      */
     public void addItem(String name, boolean isDone) {
         toDoController.addToDoItem(name, isDone,true);
-        System.out.println(name + " has been added");
     }
 
     /**
@@ -159,6 +152,5 @@ public class ToDoDetailView extends JFrame {
      */
     public void deleteItem(ToDoItem toDoItem) {
         toDoController.removeToDoItem(toDoItem, true);
-        System.out.println(toDoItem + " has been deleted");
     }
 }

@@ -11,8 +11,6 @@ public class ToDoController {
      * Constructor
      */
     public ToDoController() {
-        // Create instances
-
         // Create temporary mock data
         addToDoItem("Test", false);
         addToDoItem("Test2", true);

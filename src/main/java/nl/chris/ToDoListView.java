@@ -40,7 +40,6 @@ public class ToDoListView extends JFrame {
         JButton sortButton = new JButton("Sort");
         sortButton.addActionListener(e -> {
             // sortItems();
-            System.out.println("ToDoListView sortItems is called");
         });
         buttonsPanel.add(sortButton);
 
@@ -56,7 +55,6 @@ public class ToDoListView extends JFrame {
         // show frame
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        System.out.println("ToDoListView is initialized");
     }
     private JPanel addTodoToPanel(ToDoItem toDoItem){
         JPanel itemPanel = new JPanel();
@@ -91,11 +89,9 @@ public class ToDoListView extends JFrame {
      */
     public void addOrEditButton(ToDoItem toDoItem) {
         toDoController.ShowToDoItem(toDoItem);
-        System.out.println("ToDoListView ShowToDoItem is called");
     }
 
     public void repaintList(ArrayList<ToDoItem> toDoItems) {
-        System.out.println("List should be repainted, or deleted and created again");
         todoListPanel.removeAll();
         for (ToDoItem toDoItem : toDoItems) {
             todoListPanel.add(addTodoToPanel(toDoItem));

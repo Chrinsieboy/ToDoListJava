@@ -12,7 +12,6 @@ public class ToDoManager {
      * @return - The ToDoItem object
      */
     public ToDoItem getToDoItem(ToDoItem toDoItem) {
-        // Get the ToDoItem object
         return toDoItem;
     }
 
@@ -25,11 +24,8 @@ public class ToDoManager {
 
         // Loop through the ToDoItem array
         for (ToDoItem toDoItem : toDoItems) {
-            System.out.println(toDoItem.getName() + ", " + toDoItem.getIsDone());
             list.add(toDoItem);
         }
-
-        System.out.println("ToDoManager getToDoItems is called");
 
         // Return the ToDoItem array
         return list;
@@ -42,7 +38,6 @@ public class ToDoManager {
      * @return - The ToDoItem object
      */
     public ToDoItem addToDoItem(String name, boolean isDone) {
-        System.out.println("addToDoItem is called: " + name + ", " + isDone);
         // Create a new ToDoItem object
         ToDoItem toDoItem = new ToDoItem();
         toDoItem.setName(name);
@@ -95,10 +90,5 @@ public class ToDoManager {
         }
         // Set the new array
         toDoItems = newToDoItems;
-
-        System.out.println("-------====[ ToDo List ]====-------");
-        for (ToDoItem item : toDoItems) {
-            System.out.println(item.getName() + ", " + item.getIsDone());
-        }
     }
 }
