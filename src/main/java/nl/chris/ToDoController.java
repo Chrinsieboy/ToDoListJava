@@ -13,7 +13,9 @@ public class ToDoController {
     public ToDoController() {
         // Create temporary mock data
         addToDoItem("Test", false);
+        addToDoItem("Test5", true);
         addToDoItem("Test2", true);
+        addToDoItem("Test4", true);
         addToDoItem("Test3", false);
 
         // Show all ToDoItems
