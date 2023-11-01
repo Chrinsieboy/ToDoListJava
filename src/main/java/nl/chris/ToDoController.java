@@ -36,6 +36,10 @@ public class ToDoController {
         detailView.ShowDetail(toDoItem);
     }
 
+    public ArrayList<ToDoItem> sortItems() {
+        return manager.getToDoItems();
+    }
+
     /**
      * Add a ToDoItem
      * @param name - The name of the ToDoItem

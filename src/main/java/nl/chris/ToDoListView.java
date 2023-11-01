@@ -16,8 +16,9 @@ public class ToDoListView extends JFrame {
      */
     public void ShowList(ArrayList<ToDoItem> toDoItems) {
         JFrame frame = this;
+        frame.setTitle("ToDo List");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
+        frame.setSize(400, 600);
 
         // list panel
         todoListPanel = new JPanel();
@@ -39,7 +40,7 @@ public class ToDoListView extends JFrame {
         // sort button
         JButton sortButton = new JButton("Sort");
         sortButton.addActionListener(e -> {
-            // sortItems();
+             sortItems();
         });
         buttonsPanel.add(sortButton);
 
@@ -79,7 +80,14 @@ public class ToDoListView extends JFrame {
      * Sort the ToDoItems
      */
     public void sortItems() {
-        //
+        // get the items
+        ArrayList<ToDoItem> items = toDoController.sortItems();
+
+        // sort the items by name, Case insensitive
+        items.sort((ToDoItem o1, ToDoItem o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+        // repaint the list
+        repaintList(items);
     }
 
     /**
