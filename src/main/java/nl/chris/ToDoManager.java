@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ToDoManager {
     private String name;
     protected ToDoItem[] toDoItems = new ToDoItem[0];
+    private Database database = new Database();
 
     /**
      * Get a ToDoItem object
@@ -20,12 +21,11 @@ public class ToDoManager {
      * @return - The ToDoItem array
      */
     public ArrayList<ToDoItem> getToDoItems() {
-        ArrayList<ToDoItem> list = new ArrayList<>();
+        // Get all ToDoItems from database
+        ArrayList<ToDoItem> list = database.getToDoItems();
 
-        // Loop through the ToDoItem array
-        for (ToDoItem toDoItem : toDoItems) {
-            list.add(toDoItem);
-        }
+        // Set the ToDoItem array
+        toDoItems = list.toArray(new ToDoItem[0]);
 
         // Return the ToDoItem array
         return list;
@@ -42,6 +42,9 @@ public class ToDoManager {
         ToDoItem toDoItem = new ToDoItem();
         toDoItem.setName(name);
         toDoItem.setIsDone(isDone);
+
+        // Add item to the database
+        database.addToDoItem(toDoItem);
 
         // Add item to the ToDoItem array
         ToDoItem[] newToDoItems = new ToDoItem[toDoItems.length + 1];
@@ -65,6 +68,9 @@ public class ToDoManager {
         toDoItem.setName(name);
         toDoItem.setIsDone(isDone);
 
+        // Edit the ToDoItem object in the database
+        database.editToDoItem(toDoItem, name, isDone);
+
         // Return the ToDoItem object
         return toDoItem;
     }
@@ -85,7 +91,9 @@ public class ToDoManager {
                 newToDoItems[index] = item;
                 index++;
             } else {
+                // Remove the item from the database
                 System.out.println("Item is deleted: " + item.getName());
+                database.removeToDoItem(toDoItem);
             }
         }
         // Set the new array
