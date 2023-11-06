@@ -6,18 +6,10 @@ public class ToDoController {
     public ToDoManager manager = new ToDoManager();
     private ToDoListView list = new ToDoListView(this);
     private ToDoDetailView detailView = new ToDoDetailView(this);
-
     /**
      * Constructor
      */
     public ToDoController() {
-        // Create temporary mock data
-        addToDoItem("Test", false);
-        addToDoItem("Test5", true);
-        addToDoItem("Test2", true);
-        addToDoItem("Test4", true);
-        addToDoItem("Test3", false);
-
         // Show all ToDoItems
         ShowList(manager.getToDoItems());
     }
