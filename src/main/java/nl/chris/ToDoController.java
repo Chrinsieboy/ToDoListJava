@@ -10,6 +10,7 @@ public class ToDoController {
      * Constructor
      */
     public ToDoController() {
+
         // Show all ToDoItems
         ShowList(manager.getToDoItems());
     }
@@ -31,6 +32,13 @@ public class ToDoController {
     }
 
     public ArrayList<ToDoItem> sortItems() {
+        return manager.getToDoItems();
+    }
+
+    /**
+     * Get toDoItems
+     */
+    public ArrayList<ToDoItem> getToDoItems() {
         return manager.getToDoItems();
     }
 
@@ -67,10 +75,20 @@ public class ToDoController {
      * @param toDoItem - The ToDoItem object to remove
      */
     public void removeToDoItem(ToDoItem toDoItem) {
-        manager.removeToDoItem(toDoItem);
+        manager.removeToDoItem(toDoItem, null);
+
     }
     public void removeToDoItem(ToDoItem toDoItem,boolean updateListview) {
         this.removeToDoItem(toDoItem);
+        if(updateListview)
+            list.repaintList(manager.getToDoItems());
+    }
+
+    public void removeToDoItems(ArrayList<ToDoItem> toDoItems) {
+        manager.removeToDoItem(null, toDoItems);
+    }
+    public void removeToDoItems(ArrayList<ToDoItem> toDoItems,boolean updateListview) {
+        this.removeToDoItems(toDoItems);
         if(updateListview)
             list.repaintList(manager.getToDoItems());
     }

@@ -88,15 +88,37 @@ public class Database {
      * @param toDoItem - The ToDoItem object to remove
      */
     public void removeToDoItem(ToDoItem toDoItem) {
+        System.out.println("Database: RemoveToDoItem");
+        System.out.println("Database removeToDoItem: " + toDoItem.getName());
+        System.out.println("Database removeToDoItem: " + toDoItem.getIsDone());
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 
-            PreparedStatement ps = con.prepareStatement("DELETE FROM todoitems WHERE name = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM todoitems WHERE name = ? AND isDone = ?");
             ps.setString(1, toDoItem.getName());
+            ps.setBoolean(2, toDoItem.getIsDone());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    /**
+     * Sort ToDoItem objects by name or status
+     */
+    public ArrayList<ToDoItem> sortToDoItems() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM todoitems ORDER BY name ASC");
+            ps.executeQuery();
+            return getToDoItems();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

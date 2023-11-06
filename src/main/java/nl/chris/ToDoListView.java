@@ -1,7 +1,10 @@
 package nl.chris;
 
+import com.mysql.cj.protocol.a.MysqlTextValueDecoder;
+
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ToDoListView extends JFrame {
     private ToDoController toDoController;
@@ -9,7 +12,7 @@ public class ToDoListView extends JFrame {
     public ToDoListView(ToDoController toDoController) {
         this.toDoController = toDoController;
     }
-
+    private ArrayList<ToDoItem> selectedItems;
     /**
      * Show list with all ToDoItems
      * @param toDoItems - The ToDoItem array
@@ -44,6 +47,25 @@ public class ToDoListView extends JFrame {
         });
         buttonsPanel.add(sortButton);
 
+        // remove button
+        JButton removeButton = new JButton("Remove");
+        selectedItems = new ArrayList<>();
+        removeButton.addActionListener(e -> {
+            selectedItems.clear();
+            // Get all selected items
+            for (int i = 0; i < todoListPanel.getComponentCount(); i++) {
+                JPanel itemPanel = (JPanel) todoListPanel.getComponent(i);
+                JCheckBox checkBox = (JCheckBox) itemPanel.getComponent(0);
+                if (checkBox.isSelected()) {
+                    System.out.println("Selected: " + checkBox.getText());
+                    selectedItems.add(toDoItems.get(i));
+                }
+            }
+
+            removeToDoItems(selectedItems);
+        });
+        buttonsPanel.add(removeButton);
+
         // set layout
         todoListPanel.setLayout(new BoxLayout(todoListPanel, BoxLayout.Y_AXIS));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
@@ -60,17 +82,20 @@ public class ToDoListView extends JFrame {
     private JPanel addTodoToPanel(ToDoItem toDoItem){
         JPanel itemPanel = new JPanel();
         JLabel textLabel;
+        JCheckBox checkBox;
         if (toDoItem.getIsDone()) {
             textLabel = new JLabel(" ✔ " + toDoItem.getName() + "   ");
         } else {
             textLabel = new JLabel(" ❌ " + toDoItem.getName() + "   ");
         }
+
+        checkBox = new JCheckBox(textLabel.getText());
         JButton editButton = new JButton("Edit");
         editButton.addActionListener(e -> {
             addOrEditButton(toDoItem);
         });
 
-        itemPanel.add(textLabel);
+        itemPanel.add(checkBox);
         itemPanel.add(editButton);
         itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.X_AXIS));
         itemPanel.setVisible(true);
@@ -97,6 +122,32 @@ public class ToDoListView extends JFrame {
      */
     public void addOrEditButton(ToDoItem toDoItem) {
         toDoController.ShowToDoItem(toDoItem);
+    }
+
+    /**
+     * Delete multiple ToDoItems
+     * @param toDoItems - The ToDoItem array
+     */
+    public void removeToDoItems(ArrayList<ToDoItem> toDoItems) {
+        System.out.println("Items to delete: " + toDoItems.size());
+        System.out.println("Items that will be deleted: ");
+        for (ToDoItem item : toDoItems) {
+            System.out.println(item.getName());
+        }
+
+        if (toDoItems.size() == 0) {
+            System.out.println("No items selected");
+            return;
+        } else if (toDoItems.size() == 1) {
+            System.out.println("One item selected");
+            System.out.println("--------------------");
+            toDoController.removeToDoItem(toDoItems.get(0), true);
+        } else {
+            System.out.println("Multiple items selected");
+            System.out.println("--------------------");
+            toDoController.removeToDoItems(toDoItems, true);
+        }
+        this.repaintList(toDoController.getToDoItems());
     }
 
     public void repaintList(ArrayList<ToDoItem> toDoItems) {

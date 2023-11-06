@@ -79,24 +79,51 @@ public class ToDoManager {
      * Remove a ToDoItem object
      * @param toDoItem - The ToDoItem object to remove
      */
-    public void removeToDoItem(ToDoItem toDoItem) {
-        // get the array with items
-        ToDoItem[] newToDoItems = new ToDoItem[toDoItems.length - 1];
-        int index = 0;
-
-        // Loop through the ToDoItem array
-        for (ToDoItem item : toDoItems) {
-            // If the item is not the selected item, add it to the new array
-            if (item != toDoItem) {
-                newToDoItems[index] = item;
-                index++;
-            } else {
-                // Remove the item from the database
+    public void removeToDoItem(ToDoItem toDoItem, ArrayList<ToDoItem> multipleItems) {
+        System.out.println("ToDoManager: RemoveToDoItem");
+        if (multipleItems != null && toDoItem != null) {
+            // send error message
+            System.out.println("Error: multiple items and single item selected");
+        } else if (multipleItems != null) {
+            System.out.println("ToDoManager: Multiple items selected");
+            for (ToDoItem item : multipleItems) {
+                System.out.println("Item that should be deleted: " + item.getName());
+                System.out.println("--------------------");
+                database.removeToDoItem(item);
+                System.out.println("--------------------");
                 System.out.println("Item is deleted: " + item.getName());
-                database.removeToDoItem(toDoItem);
             }
+            System.out.println("--------------------");
+        } else if (toDoItem != null) {
+            System.out.println("ToDoManager: One item selected");
+            System.out.println("Item that should be deleted: " + toDoItem.getName());
+            System.out.println("--------------------");
+            database.removeToDoItem(toDoItem);
+            System.out.println("--------------------");
+            System.out.println("Item is deleted: " + toDoItem.getName());
+            System.out.println("--------------------");
+        } else {
+            // send error message
+            System.out.println("Error: no items selected");
         }
-        // Set the new array
-        toDoItems = newToDoItems;
     }
+
+    // get the array with items
+//        ToDoItem[] newToDoItems = new ToDoItem[toDoItems.length - 1];
+//        int index = 0;
+//
+//        // Loop through the ToDoItem array
+//        for (ToDoItem item : toDoItems) {
+//            // If the item is not the selected item, add it to the new array
+//            if (item != toDoItem) {
+//                newToDoItems[index] = item;
+//                index++;
+//            } else {
+//                // Remove the item from the database
+//                System.out.println("Item is deleted: " + item.getName());
+//                database.removeToDoItem(toDoItem);
+//            }
+//        }
+//        // Set the new array
+//        toDoItems = newToDoItems;
 }
